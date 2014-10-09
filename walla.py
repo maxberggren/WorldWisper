@@ -76,7 +76,7 @@ labels={}
 for item in nx.nodes(G):
     labels[item] = item
 
-nx.draw_networkx_labels(G, pos, labels,f ont_size=10)
+nx.draw_networkx_labels(G, pos, labels, font_size=10)
 
 plt.axis('off')
 plt.show()
