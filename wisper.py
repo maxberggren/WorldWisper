@@ -8,6 +8,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from sets import Set
 import time
+import sys
 
 class Route:
     def __init__(self, route, start_text):
@@ -27,6 +28,11 @@ class Route:
             else:
                 returning += "{} ".format(item)
         return returning
+
+    def showHistory(self):
+        print "\n###### HISTORY #######"
+        for text, lang in zip(self.data, self.route):
+            print u"[{}] {}".format(lang, text)
 
     def next(self):
         if self.pointer+1 > len(self.route):
@@ -87,32 +93,49 @@ def sendJob(lc_src, lc_tgt, body_src):
 
     while True:
         if len(gengo.getTranslationOrderJobs(id=order_id)['response']['order']['jobs_available']) > 0:
-            time.sleep(2) # Let's be nice to the api
             job_id = gengo.getTranslationOrderJobs(id=order_id)['response']['order']['jobs_available'][0]
             break
+        time.sleep(2) # Let's be nice to the api
 
     print "Job was accepted with id: {}".format(job_id)
     return job_id
 
 def getJobId(job_id):
-    print "Now let's pretend it waited for a translator..."
-    translated_text = gengo.getTranslationJob(id=job_id, pre_mt=1)['response']['job']['body_tgt']
-    print u"Translated text recieved: {}".format(translated_text)
+    print "Waiting for translation",
+
+    tries = 0
+    while True:
+        try:
+            translated_text = gengo.getTranslationJob(id=job_id, pre_mt=0)['response']['job']['body_tgt']
+            break
+        except KeyError: 
+            if SANDBOX:
+                time.sleep(1) # If it's in sandbox mode we don't have patience
+            else:
+                time.sleep(10) # Let's be nice to the api
+
+            sys.stdout.write('.')
+            sys.stdout.flush()
+
+            if SANDBOX:
+                tries += 1
+                if tries > 2:
+                    translated_text = gengo.getTranslationJob(id=job_id, pre_mt=1)['response']['job']['body_tgt']
+                    break
+
+    print u"\nTranslated text recieved: {}\n".format(translated_text)
     return translated_text
-
-
-
 
 
 
 gengo = Gengo(
     public_key=PUBLIC_KEY,
     private_key=PRIVATE_KEY,
-    sandbox=True,
+    sandbox=SANDBOX,
 )
 
-r = Route(['en', 'sv', 'en', 'sv', 'en', 'sv', 'en', 'sv'], 
-           start_text=u"Well if I'm the only one cleaning the toilet i just might decide to stop. And then there will be poo everywhere. Beware.")
+r = Route(['en', 'de', 'en'], 
+           start_text=u"To be powerfull you need to have patience.")
 r.start()
 
 
