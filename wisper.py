@@ -4,9 +4,6 @@
 from config import *
 from gengo import Gengo
 import json
-import networkx as nx
-import matplotlib.pyplot as plt
-from sets import Set
 import time
 import sys
 
@@ -21,6 +18,7 @@ class Route:
         return self.showRoute()
 
     def showRoute(self):
+        """ Show easy representation of our route """
         returning = ""
         for i, item in enumerate(self.route):
             if i == self.pointer:
@@ -30,17 +28,20 @@ class Route:
         return returning
 
     def showHistory(self):
+        """ Print out the completed translations """
         print "\n###### HISTORY #######"
         for text, lang in zip(self.data, self.route):
             print u"[{}] {}".format(lang, text)
 
     def next(self):
+        """ Go to next language-pair """
         if self.pointer+1 > len(self.route):
             raise KeyError
         else:
             self.pointer += 1
 
     def languagePair(self):
+        """ Tell us between wich languages the translation will be done """
         if self.pointer == len(self.route):
             print "We are done"
         else:
@@ -48,6 +49,7 @@ class Route:
                                                                self.route[self.pointer+1].upper())
 
     def start(self):
+        """ Begin our journey trough the languages """
         if self.pointer == 0:
             for pointer in range(len(self.route)-1):
                 self.languagePair()
@@ -61,14 +63,15 @@ class Route:
             self.showHistory()
 
 
-
 def pretty(data):
+    """ Make readable json """
     return json.dumps(data,
                       sort_keys=True,
                       indent=4, 
                       separators=(',', ': '))
 
 def sendJob(lc_src, lc_tgt, body_src):
+    """ Send job to translation service """
     data = {
         'jobs': {
             'job_1': {
@@ -101,6 +104,7 @@ def sendJob(lc_src, lc_tgt, body_src):
     return job_id
 
 def getJobId(job_id):
+    """ Get the job or wait if it's not done yet """
     print "Waiting for translation",
 
     tries = 0
@@ -117,7 +121,7 @@ def getJobId(job_id):
             sys.stdout.write('.')
             sys.stdout.flush()
 
-            if SANDBOX:
+            if SANDBOX: # Simulate waiting for a translator
                 tries += 1
                 if tries > 2:
                     translated_text = gengo.getTranslationJob(id=job_id, pre_mt=1)['response']['job']['body_tgt']
@@ -127,15 +131,15 @@ def getJobId(job_id):
     return translated_text
 
 
-
 gengo = Gengo(
     public_key=PUBLIC_KEY,
     private_key=PRIVATE_KEY,
     sandbox=SANDBOX,
 )
 
-r = Route(['en', 'de', 'en'], 
-           start_text=u"To be powerfull you need to have patience.")
+# Let's try it
+r = Route(['en', 'ko', 'ja', 'es', 'en'], 
+           start_text=u"When we tackle obstacles, we find hidden reserves of courage and resilience we did not know we had. And it is only when we are faced with failure do we realise that these resources were always there within us. We only need to find them and move on with our lives.")
 r.start()
 
 
