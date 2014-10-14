@@ -20,7 +20,7 @@ returns:
 [en] When we try to overcome the difficulties, we will find out the hidden courage and resilience within us which we did not know before.
 ```
 
-A route can bi of any lenght. Why not try to translate around the world? `en -> id -> ja -> es -> de -> nl -> en` I ran out of credits before I could try this.
+A route can be of any lenght. Why not try to translate around the world? `en -> id -> ja -> es -> de -> nl -> en` I ran out of credits before I could try this.
 
 Avalible language pairs are the following:
 
