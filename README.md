@@ -22,21 +22,21 @@ returns:
 
 Note that route can be of any length making it possible. Why not try to translate around the world (if you can afford it)?
 
-### English -> Japanese -> English
+#### English -> Japanese -> English
 
 ```
 [en] When we tackle obstacles, we find hidden reserves of courage and resilience we did not know we had.
 [ja] 問題に直面すると、人は自分が勇敢さや立ち直る力を兼ね備えているということに気が付く。
 [en] When faced with problems, people realize that they possess courage and the strength needed to stand back up. 
 ```
-### English -> Spanish -> English
+#### English -> Spanish -> English
  
 ```
 [en] When we tackle obstacles, we find hidden reserves of courage and resilience we did not know we had.
 [es] Cuando afrontamos obstáculos, encontramos reservas ocultas de valor y adaptación que no sabíamos que teníamos.
 [en] When we face obstacles, we find hidden resources of courage and adaptation, which we didn't know about.
 ```
-### English -> German -> English
+#### English -> German -> English
 
 ```
 [en] When we tackle obstacles, we find hidden reserves of courage and resilience we did not know we had.
