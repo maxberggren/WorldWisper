@@ -19,6 +19,9 @@ returns:
 [ko] 우리가 어려움을 극복하고자 노력할 때, 우리는 전에 알지 못했던 우리 안에 숨겨진 용기와 회복력을 발견하게 된다.
 [en] When we try to overcome the difficulties, we will find out the hidden courage and resilience within us which we did not know before.
 ```
+
+Note that route can be of any length making it possible. Why not try to translate around the world (if you can afford it)?
+
 English -> Japanese -> English
 ------------------------------
 ```
