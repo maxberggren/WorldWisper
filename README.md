@@ -24,7 +24,7 @@ A route can bi of any lenght. Why not try to translate around the world? `en -> 
 
 Avalible language pairs are the following:
 
-![](http://i.imgur.com/bytDJ1M.png)
+![](http://i.imgur.com/bytDJ1M.png =250x)
 
 #### English -> Japanese -> English
 
